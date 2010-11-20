@@ -4,26 +4,52 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <title>Atkinson-dither</title>
   <script type="text/javascript" charset="utf-8">
-    function draw() {
-      var canvas = document.getElementById('canvas');
-      if (canvas.getContext) {
-        var ctx = canvas.getContext('2d'),
-            colorimage = new Image();
-        
-        colorimage.src = "avatar.png";
-        colorimage.onload = function() {
-         ctx.drawImage(colorimage,0,0); 
-         var imgd = ctx.getImageData(0,0,255,255); // FIXME: magic number
-         var pixels = imgd.data;
-         for (var i=0; i<=pixels.length; i+=4) {
-         // luminance: red x 0.3 + green x 0.59 + blue x 0.11
-          var grayscale = pixels[i] * 0.3 + pixels[i+1] * 0.59 + pixels[i+2] * 0.11;
-          pixels[i] = pixels[i+1] = pixels[i+2] = grayscale;
-         }
-         ctx.putImageData(imgd,0,0);
-        }
-      }
+function threshold(i) {
+  if (i <= 128) {
+    return 0;
+  }
+  else {
+    return 255;
+  }
+}
+function luminance(imagedata) {
+  var pixels = imagedata.data;
+  for (var i=0; i<=pixels.length; i+=4) {
+    // luminance: red x 0.3 + green x 0.59 + blue x 0.11
+    pixels[i] = pixels[i+1] = pixels[i+2] = parseInt(pixels[i] * 0.3 + pixels[i+1] * 0.59 + pixels[i+2] * 0.11, 10);
+  }
+  return imagedata;
+}
+function atkinson(imagedata) {
+  var pixels = imagedata.data;
+  var w = imagedata.width;
+  for (var i=0; i<=pixels.length; i+=4) {
+    var neighbours = [i+4, i+8, i+(4*w)-4, i+(4*w), i+(4*w)+4, i+(8*w)];
+    var mono = threshold(pixels[i]);
+    var err = parseInt( (pixels[i] - mono) /8, 10);
+    pixels[i] = mono;
+    for (one in neighbours) {
+      pixels[neighbours[one]] += err;
     }
+    pixels[i+1] = pixels[i+2] = pixels[i];
+  }
+  return imagedata;
+}
+function draw() {
+  var canvas = document.getElementById('canvas');
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+    var image = new Image();
+    image.src = "61172_435393065145_722715145_5755463_36797_n.jpg";
+    image.onload = function() {
+      canvas.height = image.height;
+      canvas.width = image.width;
+      ctx.drawImage(image,0,0); 
+      var imgd = ctx.getImageData(0,0,canvas.width,canvas.height);
+      ctx.putImageData(atkinson(luminance(imgd)),0,0);
+    }
+  }
+}
   </script>
   <style type="text/css" media="screen">
     canvas { border: 1px solid black; }
