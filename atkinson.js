@@ -1,11 +1,11 @@
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   document.addEventListener("DOMContentLoaded", function() {
-    var canvas, draw;
-    canvas = document.getElementById('canvas');
+    var canvas, draw, imagewell;
+    canvas = document.createElement('canvas');
+    imagewell = document.getElementById('imagewell');
     draw = function(src) {
       var ctx, image;
-      canvas = document.getElementById('canvas');
       if (canvas.getContext) {
         ctx = canvas.getContext('2d');
         image = new Image();
@@ -23,6 +23,7 @@
           worker.addEventListener("message", function(event) {
             if (event.data.image) {
               ctx.putImageData(event.data.image, 0, 0);
+              imagewell.src = canvas.toDataURL("image/png");
             }
             if (event.data.progress) {
               return console.log(event.data.progress);
@@ -35,16 +36,16 @@
         };
       }
     };
-    canvas.addEventListener("dragover", __bind(function(event) {
+    imagewell.addEventListener("dragover", __bind(function(event) {
       event.stopPropagation();
       return event.preventDefault();
     }, this), false);
-    canvas.addEventListener("drop", __bind(function(event) {
+    imagewell.addEventListener("drop", __bind(function(event) {
       var file, reader;
       event.stopPropagation();
       event.preventDefault();
       file = event.dataTransfer.files[0];
-      console.log(file.type);
+      console.log(event.dataTransfer.files[0]);
       if (!file.type.match('image.*')) {
         return false;
       }
@@ -54,6 +55,12 @@
       };
       return reader.readAsDataURL(file);
     }, this), false);
+    imagewell.addEventListener("dragstart", __bind(function(event) {
+      console.log(imagewell.src);
+      event.dataTransfer.setData("DownloadURL", imagewell.src);
+      event.dataTransfer.setData("text/plain", imagewell.src);
+      return console.log("dragging");
+    }, this));
     return draw("default.png");
   }, false);
 }).call(this);
