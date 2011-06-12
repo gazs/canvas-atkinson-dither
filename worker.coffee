@@ -29,3 +29,4 @@ atkinson = (imagedata) ->
 
 @addEventListener "message", (event) ->
   @postMessage image: atkinson luminance event.data
+,false

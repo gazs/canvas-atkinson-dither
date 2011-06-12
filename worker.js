@@ -41,5 +41,5 @@
     return this.postMessage({
       image: atkinson(luminance(event.data))
     });
-  });
+  }, false);
 }).call(this);

@@ -28,10 +28,10 @@
             if (event.data.progress) {
               return console.log(event.data.progress);
             }
-          });
-          worker.addEventListener("error", function(event) {
+          }, false);
+          worker.addEventListener("error", (function(event) {
             return alert("error");
-          });
+          }), false);
           return worker.postMessage(imgd);
         };
       }
@@ -60,7 +60,7 @@
       event.dataTransfer.setData("DownloadURL", imagewell.src);
       event.dataTransfer.setData("text/plain", imagewell.src);
       return console.log("dragging");
-    }, this));
+    }, this), false);
     return draw("default.png");
   }, false);
 }).call(this);

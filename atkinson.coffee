@@ -20,7 +20,8 @@ document.addEventListener "DOMContentLoaded", ->
             imagewell.src = canvas.toDataURL("image/png")
           if event.data.progress
             console.log event.data.progress
-        worker.addEventListener "error", (event) -> alert "error"
+        , false
+        worker.addEventListener "error",((event) -> alert "error"), false
         worker.postMessage imgd
 
   imagewell.addEventListener "dragover", (event) =>
@@ -43,9 +44,8 @@ document.addEventListener "DOMContentLoaded", ->
     console.log imagewell.src
     event.dataTransfer.setData("DownloadURL",imagewell.src)
     event.dataTransfer.setData("text/plain", imagewell.src)
-
     console.log "dragging"
-
+  ,false
   draw("default.png")
 , false
 
