@@ -4,6 +4,7 @@ document.addEventListener "DOMContentLoaded", ->
   imagewell = document.getElementById 'imagewell'
 
   draw = (src) ->
+    document.body.style.cursor = "wait"
     if canvas.getContext
       ctx = canvas.getContext('2d')
       image = new Image()
@@ -18,6 +19,7 @@ document.addEventListener "DOMContentLoaded", ->
           if event.data.image
             ctx.putImageData event.data.image, 0, 0;
             imagewell.src = canvas.toDataURL("image/png")
+            document.body.style.cursor = ""
           if event.data.progress
             console.log event.data.progress
         , false
@@ -33,7 +35,6 @@ document.addEventListener "DOMContentLoaded", ->
     event.stopPropagation()
     event.preventDefault()
     file = event.dataTransfer.files[0]
-    console.log event.dataTransfer.files[0]
     return false unless file.type.match('image.*')
     reader = new FileReader()
     reader.onload = (e) -> draw e.target.result
@@ -41,10 +42,8 @@ document.addEventListener "DOMContentLoaded", ->
   , false
 
   imagewell.addEventListener "dragstart", (event) =>
-    console.log imagewell.src
     event.dataTransfer.setData("DownloadURL",imagewell.src)
     event.dataTransfer.setData("text/plain", imagewell.src)
-    console.log "dragging"
   ,false
   draw("default.png")
 , false
