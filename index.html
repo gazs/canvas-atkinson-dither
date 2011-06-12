@@ -19,15 +19,17 @@
   <!--<div id="imagewell" width="256" height="256">drop image here to start</div>-->
   <img src="default.png" id="imagewell">
 
-<p>The classic Macintosh 1-bit filter, as used by <a href="http://www.tinrocket.com/software/hyperdither/">Hyperdither</a></p> 
+<p>This is an implementation of th classic Macintosh 1-bit filter, as used by <a href="http://www.tinrocket.com/software/hyperdither/">Hyperdither</a></p> 
  
-<p>Compares every pixel to 50% grey, then changes them to either black or white. The difference between the input and the output is then distributed to the neighbouring pixels <a href="http://verlagmartinkoch.at/software/dither/index.html">as follows</a> (X is the current pixel):</p> 
+<p>It compares every pixel to 50% grey, then changes them to either black or white. The difference between the input and the output is then distributed to the neighbouring pixels <a href="http://verlagmartinkoch.at/software/dither/index.html">as follows</a> (X is the current pixel):</p> 
  
 <pre><code>     X  1/8 1/8
 1/8 1/8 1/8
     1/8
 </code></pre> 
- 
+
+<p>The rendered image can be rightclicked-saved. (Due to limitations of the browsers(?) you cannot drag it to the desktop)
+
 <p>This code uses <a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd">Drag and Drop events</a>, <a href="https://developer.mozilla.org/en/using_web_workers">WebWorkers</a> and the <a href="https://developer.mozilla.org/en/DOM/FileReader">FileReader</a> API so you'll need a current browser to try it.</p>
 <p><a href="https://github.com/gazs/canvas-atkinson-dither">The code is available on github</a></p>
 </body>
