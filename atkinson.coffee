@@ -1,8 +1,9 @@
 document.addEventListener "DOMContentLoaded", ->
-  canvas = document.getElementById 'canvas'
+
+  canvas = document.createElement 'canvas'
+  imagewell = document.getElementById 'imagewell'
 
   draw = (src) ->
-    canvas = document.getElementById 'canvas'
     if canvas.getContext
       ctx = canvas.getContext('2d')
       image = new Image()
@@ -16,26 +17,34 @@ document.addEventListener "DOMContentLoaded", ->
         worker.addEventListener "message", (event) ->
           if event.data.image
             ctx.putImageData event.data.image, 0, 0;
+            imagewell.src = canvas.toDataURL("image/png")
           if event.data.progress
             console.log event.data.progress
         worker.addEventListener "error", (event) -> alert "error"
         worker.postMessage imgd
 
-  canvas.addEventListener "dragover", (event) =>
+  imagewell.addEventListener "dragover", (event) =>
     event.stopPropagation()
     event.preventDefault()
   , false
 
-  canvas.addEventListener "drop", (event) =>
+  imagewell.addEventListener "drop", (event) =>
     event.stopPropagation()
     event.preventDefault()
     file = event.dataTransfer.files[0]
-    console.log file.type
+    console.log event.dataTransfer.files[0]
     return false unless file.type.match('image.*')
     reader = new FileReader()
     reader.onload = (e) -> draw e.target.result
     reader.readAsDataURL file 
   , false
+
+  imagewell.addEventListener "dragstart", (event) =>
+    console.log imagewell.src
+    event.dataTransfer.setData("DownloadURL",imagewell.src)
+    event.dataTransfer.setData("text/plain", imagewell.src)
+
+    console.log "dragging"
 
   draw("default.png")
 , false
