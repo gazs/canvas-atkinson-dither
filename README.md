@@ -1,15 +1,19 @@
-# Atkinson dithering canvasben
+# Atkinson dithering example using Canvas, WebWorkers and FileReader
 
-A klasszikus macintoshos egybites filter, as seen on [Hyperdither][1]
+The classic Macintosh 1-bit filter, as used by [Hyperdither][1]
 
-Minden pixelt 50% szürkéhez hasonlít, attól függően melyikhez van közelebb, feketére vagy fehérre színezi. Az értékkülönbséget a szomszédos pixelek között [osztja szét][2]:
+Compares every pixel to 50% grey, then changes them to either black or white. The difference between the input and the output is then distributed to the neighbouring pixels [as follows][2] (X is the current pixel):
 
          X  1/8 1/8
     1/8 1/8 1/8
         1/8
 
-Milyen jó lenne, ha tudnék betölteni képet a canvasba fájlból is, nem csak url-ből, onnan kezdve lenne értelme is ennek az ujjgyakorlatnak. Ha nagyon ráérnék, lehetne webworkeresíteni is.
+This code uses [Drag and Drop events][5], [WebWorkers][3] and the [FileReader][4] API so you'll need a current browser to try it.
 
+(Oh, and of course, CoffeeScript, to compile the files into JS)
 
 [1]:http://www.tinrocket.com/software/hyperdither/
 [2]:http://verlagmartinkoch.at/software/dither/index.html
+[3]:https://developer.mozilla.org/en/using_web_workers
+[4]:https://developer.mozilla.org/en/DOM/FileReader
+[5]:http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd
