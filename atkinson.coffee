@@ -29,6 +29,14 @@ document.addEventListener "DOMContentLoaded", ->
   imagewell.addEventListener "dragover", (event) =>
     event.stopPropagation()
     event.preventDefault()
+    imagewell.src = "default-hover.png"
+  , false
+
+  imagewell.addEventListener "dragenter", (event) ->
+    imagewell.src = "default-hover.png"
+  , false
+  imagewell.addEventListener "dragleave", (event) ->
+    imagewell.src = "default.png"
   , false
 
   imagewell.addEventListener "drop", (event) =>
@@ -45,6 +53,5 @@ document.addEventListener "DOMContentLoaded", ->
     event.dataTransfer.setData("DownloadURL",imagewell.src)
     event.dataTransfer.setData("text/plain", imagewell.src)
   ,false
-  draw("default.png")
 , false
 

@@ -40,8 +40,15 @@
     };
     imagewell.addEventListener("dragover", __bind(function(event) {
       event.stopPropagation();
-      return event.preventDefault();
+      event.preventDefault();
+      return imagewell.src = "default-hover.png";
     }, this), false);
+    imagewell.addEventListener("dragenter", function(event) {
+      return imagewell.src = "default-hover.png";
+    }, false);
+    imagewell.addEventListener("dragleave", function(event) {
+      return imagewell.src = "default.png";
+    }, false);
     imagewell.addEventListener("drop", __bind(function(event) {
       var file, reader;
       event.stopPropagation();
@@ -56,10 +63,9 @@
       };
       return reader.readAsDataURL(file);
     }, this), false);
-    imagewell.addEventListener("dragstart", __bind(function(event) {
+    return imagewell.addEventListener("dragstart", __bind(function(event) {
       event.dataTransfer.setData("DownloadURL", imagewell.src);
       return event.dataTransfer.setData("text/plain", imagewell.src);
     }, this), false);
-    return draw("default.png");
   }, false);
 }).call(this);
