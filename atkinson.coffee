@@ -29,7 +29,6 @@ document.addEventListener "DOMContentLoaded", ->
   imagewell.addEventListener "dragover", (event) =>
     event.stopPropagation()
     event.preventDefault()
-    imagewell.src = "default-hover.png"
   , false
 
   imagewell.addEventListener "dragenter", (event) ->
@@ -50,7 +49,8 @@ document.addEventListener "DOMContentLoaded", ->
   , false
 
   imagewell.addEventListener "dragstart", (event) =>
-    event.dataTransfer.setData("DownloadURL",imagewell.src)
+    console.log event.dataTransfer.files[0]
+    event.dataTransfer.setData("text/uri-list", imagewell.src)
     event.dataTransfer.setData("text/plain", imagewell.src)
   ,false
 , false

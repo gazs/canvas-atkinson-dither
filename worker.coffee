@@ -1,4 +1,4 @@
-threshold = (i) -> if i <= 128 then 0 else 255
+threshold = (i) -> if i <= 127 then 0 else 255
 
 luminance = (imagedata) ->
   pixels = imagedata.data
@@ -16,17 +16,16 @@ luminance = (imagedata) ->
 atkinson = (imagedata) ->
   pixels = imagedata.data
   w = imagedata.width
-  for i in [0..pixels.length] by 4
-    neighbours = [i+4, i+8, i+(4*w)-4, i+(4*w), i+(4*w)+4, i+(8*w)]
+  for i in [0..pixels.length] by 4 # = r, g, b, a
     mono = threshold pixels[i]
     err  = parseInt (pixels[i] - mono) / 8, 10
     pixels[i] = mono
-    for one of neighbours
-      pixels[neighbours[one]] += err
+    for one in [i+4, i+8, i+(4*w)-4, i+(4*w), i+(4*w)+4, i+(8*w)]
+      pixels[one] += err
     pixels[i+1] = pixels[i+2] = pixels[i]
   @postMessage progress: "atkinson done"
   return imagedata
 
 @addEventListener "message", (event) ->
-  @postMessage image: atkinson luminance event.data
+  @postMessage image: luminance atkinson event.data
 ,false
