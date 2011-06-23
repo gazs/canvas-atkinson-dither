@@ -225,8 +225,8 @@ button[disabled]:active {
 }
 #main {
   display: block;
-  left: 100px;
-  top: 100px;
+  left: 10px;
+  top: 30px;
 }
 #helpwindow {
   left: 300px;
@@ -243,8 +243,8 @@ button[disabled]:active {
 }
 #imagewell.empty {
   border: 1px dotted #000;
-  height: 256px;
-  width: 256px;
+  height: 384px;
+  width: 512px;
 }
 #imagewell.empty:after {
   height: 256px;
@@ -254,7 +254,7 @@ button[disabled]:active {
   content: "drop image file here";
 }
 #imagewell.hover {
-  height: 256px;
-  width: 256px;
+  height: 384px;
+  width: 512px;
   border: 2px dashed #000;
 }

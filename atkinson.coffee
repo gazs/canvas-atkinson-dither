@@ -11,13 +11,10 @@ document.addEventListener "DOMContentLoaded", ->
       image.src = src
       image.onload = ->
         if image.height > 512 or image.width > 384
-          console.log "nagy"
           if image.height > image.width
-            console.log "portrait"
             canvas.height = height
             canvas.width = (height/image.height) * image.width
           if image.width > image.height
-            console.log "landscape"
             canvas.width = width
             canvas.height = (width/image.width) * image.height
         else 
@@ -44,36 +41,32 @@ document.addEventListener "DOMContentLoaded", ->
         worker.postMessage imgd
 
   imagewell.addEventListener "dragover", (event) =>
-    console.log "dragover"
     event.stopPropagation()
     event.preventDefault()
   , false
 
   imagewell.addEventListener "dragenter", (event) ->
-    console.log "dragenter"
     event.stopPropagation()
     event.preventDefault()
     imagewell.className = "hover"
   , false
   imagewell.addEventListener "dragleave", (event) ->
-    console.log "dragleave"
     event.stopPropagation()
     event.preventDefault()
     imagewell.className = "empty"
   , false
 
   imagewell.addEventListener "drop", (event) =>
-    console.log "drop"
     event.stopPropagation()
     event.preventDefault()
     file = event.dataTransfer.files[0]
-    console.log file
     return false unless file.type.match('image.*')
     reader = new FileReader()
-    reader.onload = (e) -> console.log e.target.result
-    reader.onerror = (e) -> console.error e
+    reader.onload = (e) -> draw e.target.result
+    reader.onerror = (e) -> alert "FileReader error"
 
     reader.readAsDataURL file 
+    console.log "drop done"
   , false
 
   imagewell.addEventListener "dragstart", (event) =>

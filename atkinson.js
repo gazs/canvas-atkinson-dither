@@ -20,14 +20,11 @@
         return image.onload = function() {
           var imgd, prop, _i, _len, _ref;
           if (image.height > 512 || image.width > 384) {
-            console.log("nagy");
             if (image.height > image.width) {
-              console.log("portrait");
               canvas.height = height;
               canvas.width = (height / image.height) * image.width;
             }
             if (image.width > image.height) {
-              console.log("landscape");
               canvas.width = width;
               canvas.height = (width / image.width) * image.height;
             }
@@ -67,40 +64,36 @@
       }
     };
     imagewell.addEventListener("dragover", __bind(function(event) {
-      console.log("dragover");
       event.stopPropagation();
       return event.preventDefault();
     }, this), false);
     imagewell.addEventListener("dragenter", function(event) {
-      console.log("dragenter");
       event.stopPropagation();
       event.preventDefault();
       return imagewell.className = "hover";
     }, false);
     imagewell.addEventListener("dragleave", function(event) {
-      console.log("dragleave");
       event.stopPropagation();
       event.preventDefault();
       return imagewell.className = "empty";
     }, false);
     imagewell.addEventListener("drop", __bind(function(event) {
       var file, reader;
-      console.log("drop");
       event.stopPropagation();
       event.preventDefault();
       file = event.dataTransfer.files[0];
-      console.log(file);
       if (!file.type.match('image.*')) {
         return false;
       }
       reader = new FileReader();
       reader.onload = function(e) {
-        return console.log(e.target.result);
+        return draw(e.target.result);
       };
       reader.onerror = function(e) {
-        return console.error(e);
+        return alert("FileReader error");
       };
-      return reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+      return console.log("drop done");
     }, this), false);
     return imagewell.addEventListener("dragstart", __bind(function(event) {
       console.log(event.dataTransfer.files[0]);
