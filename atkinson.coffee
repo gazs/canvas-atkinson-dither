@@ -44,7 +44,7 @@ class Imagewell
     image = new Image()
     image.src = src
     image.onload = =>
-        if image.height > 512 or image.width > 384
+        if image.height > height or image.width > width
           if image.height > image.width
             @canvas.height = height
             @canvas.width = (height/image.height) * image.width

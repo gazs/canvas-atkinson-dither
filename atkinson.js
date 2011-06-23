@@ -68,7 +68,7 @@
       image.src = src;
       return image.onload = __bind(function() {
         var imgd, prop, worker, _i, _len, _ref;
-        if (image.height > 512 || image.width > 384) {
+        if (image.height > height || image.width > width) {
           if (image.height > image.width) {
             this.canvas.height = height;
             this.canvas.width = (height / image.height) * image.width;
