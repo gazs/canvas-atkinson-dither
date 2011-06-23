@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>Mac-classic</title>
+  <link rel="stylesheet" href="mac-classic.css" type="text/css" media="screen" charset="utf-8">
+  <!--<link rel="stylesheet" href="old.css" type="text/css" media="screen" charset="utf-8">-->
+  <script src="mac-classic.js" type="text/javascript" charset="utf-8"></script>
+  <script src="atkinson.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+  <div id="wrapper">
+    <ul id="menubar">
+      <li>&#63743;
+        <ul class="menu">
+          <li><a href="#" id="about">About this Site</a></li>
+        </ul>
+      </li>
+      <li>File
+        <ul class="menu">
+          <li><a href="#" id="import">Import...</a></li>
+          <li><a href="#" id="export">Export...</a></li>
+        </ul>
+      </li>
+      <li>Help
+        <ul class="menu">
+          <li><a href="#" id="help">What's this?</a></li>
+        </ul>
+      </li>
+
+    </ul>
+
+   <div class="window active" id="main">
+     <header><h1>Atkinson Dithering</h1></header>
+     <article>
+     <img src="default.png" id="imagewell">
+       <button>gomb</button>
+     </article>
+   </div>
+   <div id="helpwindow" class="window">
+     <header><div class="close"></div><h1>What's this?</h1></header>
+     <article><p>This is an implementation of the classic Macintosh 1-bit filter, as used by <a href="http://www.tinrocket.com/software/hyperdither/">Hyperdither</a> and HyperScan originally.</p> 
+ 
+<p>It compares every pixel to 50% grey, then changes them to either black or white. The difference between the input and the output is then distributed to the neighbouring pixels <a href="http://verlagmartinkoch.at/software/dither/index.html">as follows</a> (X is the current pixel):</p> 
+ 
+<pre><code>     X  1/8 1/8
+1/8 1/8 1/8
+    1/8
+</code></pre> 
+ 
+<p>The rendered image can be rightclicked-saved. (Due to limitations of the browsers(?) you cannot drag it to the desktop)
+ 
+<p>This code uses Canvas, <a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd">Drag and Drop events</a>, <a href="https://developer.mozilla.org/en/using_web_workers">WebWorkers</a> and the <a href="https://developer.mozilla.org/en/DOM/FileReader">FileReader</a> API so you'll need a current browser to try it.</p></article> 
+   </div>
+
+   <div class="window headless" id="aboutwindow">
+     <article>
+     <p>Atkinson dithering demo app</p>
+     <p>written by Gáspár Körtesi</p>
+     <p>&lt;<a href="mailto:gazs@bergengocia.net">gazs@bergengocia.net</a>&gt;</p>
+     <p></p>
+       <button class="close">OK</button>
+       
+     </article>
+   </div>
+
+  </div>
+</body>
+</html>
