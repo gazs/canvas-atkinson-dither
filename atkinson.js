@@ -38,7 +38,6 @@
               canvas[prop] = image[prop];
             }
           }
-          console.log(image.height, image.width, image.height / image.width, canvas.height, canvas.width, canvas.height / canvas.width);
           ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
           imgd = ctx.getImageData(0, 0, canvas.width, canvas.height);
           window.worker = new Worker("worker.js");
@@ -68,26 +67,38 @@
       }
     };
     imagewell.addEventListener("dragover", __bind(function(event) {
+      console.log("dragover");
       event.stopPropagation();
       return event.preventDefault();
     }, this), false);
     imagewell.addEventListener("dragenter", function(event) {
+      console.log("dragenter");
+      event.stopPropagation();
+      event.preventDefault();
       return imagewell.className = "hover";
     }, false);
     imagewell.addEventListener("dragleave", function(event) {
+      console.log("dragleave");
+      event.stopPropagation();
+      event.preventDefault();
       return imagewell.className = "empty";
     }, false);
     imagewell.addEventListener("drop", __bind(function(event) {
       var file, reader;
+      console.log("drop");
       event.stopPropagation();
       event.preventDefault();
       file = event.dataTransfer.files[0];
+      console.log(file);
       if (!file.type.match('image.*')) {
         return false;
       }
       reader = new FileReader();
       reader.onload = function(e) {
-        return draw(e.target.result);
+        return console.log(e.target.result);
+      };
+      reader.onerror = function(e) {
+        return console.error(e);
       };
       return reader.readAsDataURL(file);
     }, this), false);

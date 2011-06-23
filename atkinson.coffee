@@ -22,10 +22,6 @@ document.addEventListener "DOMContentLoaded", ->
             canvas.height = (width/image.width) * image.height
         else 
           canvas[prop] = image[prop] for prop in ['height', 'width']
-        console.log image.height, image.width, image.height/image.width, canvas.height, canvas.width, canvas.height/canvas.width
-        #
-        #
-        #
         ctx.drawImage image, 0, 0, canvas.width, canvas.height
         imgd = ctx.getImageData(0,0,canvas.width,canvas.height);
         window.worker = new Worker "worker.js"
@@ -48,26 +44,35 @@ document.addEventListener "DOMContentLoaded", ->
         worker.postMessage imgd
 
   imagewell.addEventListener "dragover", (event) =>
+    console.log "dragover"
     event.stopPropagation()
     event.preventDefault()
   , false
 
   imagewell.addEventListener "dragenter", (event) ->
-    #imagewell.src = "default-hover.png"
+    console.log "dragenter"
+    event.stopPropagation()
+    event.preventDefault()
     imagewell.className = "hover"
   , false
   imagewell.addEventListener "dragleave", (event) ->
+    console.log "dragleave"
+    event.stopPropagation()
+    event.preventDefault()
     imagewell.className = "empty"
-    #imagewell.src = "default.png"
   , false
 
   imagewell.addEventListener "drop", (event) =>
+    console.log "drop"
     event.stopPropagation()
     event.preventDefault()
     file = event.dataTransfer.files[0]
+    console.log file
     return false unless file.type.match('image.*')
     reader = new FileReader()
-    reader.onload = (e) -> draw e.target.result
+    reader.onload = (e) -> console.log e.target.result
+    reader.onerror = (e) -> console.error e
+
     reader.readAsDataURL file 
   , false
 
