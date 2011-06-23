@@ -129,6 +129,14 @@ button:active {
   color: #fff;
   background: #000;
 }
+button[disabled] {
+  color: #808080;
+}
+button[disabled]:active {
+  color: #000;
+  background: #fff;
+  color: #808080;
+}
 #menubar {
   margin: 0;
   padding: 0;
@@ -196,4 +204,25 @@ button:active {
 #aboutwindow {
   left: 120px;
   top: 120px;
+}
+#imagewell {
+  border: 1px dotted #000;
+  border-radius: 5px;
+  display: block;
+}
+#imagewell.empty {
+  height: 256px;
+  width: 256px;
+}
+#imagewell.empty:after {
+  height: 256px;
+  width: 256px;
+  text-align: center;
+  font: 12px "Virtue", "Charcoal", "Chicago", sans;
+  content: "drop image file here";
+}
+#imagewell.hover {
+  height: 256px;
+  width: 256px;
+  border: 2px dashed #000;
 }

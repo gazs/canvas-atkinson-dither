@@ -140,6 +140,11 @@ button
   vertical-align middle
   &:active
     whiteonblack()
+  &[disabled]
+    color: #808080
+    &:active
+      blackonwhite()
+      color:#808080
 
 #menubar
   nomarginpadding()
@@ -191,3 +196,21 @@ button
 #aboutwindow
   left 120px
   top 120px
+
+#imagewell
+  border 1px dotted black
+  border-radius: 5px
+  display block
+  &.empty
+    height 256px
+    width 256px
+    &:after
+      height 256px
+      width 256px
+      text-align center
+      font $systemfont
+      content: 'drop image file here'
+  &.hover
+    height 256px
+    width 256px
+    border: 2px dashed black 

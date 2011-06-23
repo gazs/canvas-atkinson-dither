@@ -19,6 +19,8 @@ document.addEventListener "DOMContentLoaded", ->
             ctx.putImageData event.data.image, 0, 0;
             imagewell.src = canvas.toDataURL("image/png")
             document.body.style.cursor = ""
+            document.getElementById("savetodesktop").disabled = false
+            imagewell.className = ""
           if event.data.progress
             console.log event.data.progress
         , false
@@ -31,10 +33,12 @@ document.addEventListener "DOMContentLoaded", ->
   , false
 
   imagewell.addEventListener "dragenter", (event) ->
-    imagewell.src = "default-hover.png"
+    #imagewell.src = "default-hover.png"
+    imagewell.className = "hover"
   , false
   imagewell.addEventListener "dragleave", (event) ->
-    imagewell.src = "default.png"
+    imagewell.className = "empty"
+    #imagewell.src = "default.png"
   , false
 
   imagewell.addEventListener "drop", (event) =>

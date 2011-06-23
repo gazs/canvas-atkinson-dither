@@ -5,7 +5,6 @@
 
   <title>Mac-classic</title>
   <link rel="stylesheet" href="mac-classic.css" type="text/css" media="screen" charset="utf-8">
-  <!--<link rel="stylesheet" href="old.css" type="text/css" media="screen" charset="utf-8">-->
   <script src="mac-classic.js" type="text/javascript" charset="utf-8"></script>
   <script src="atkinson.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -34,11 +33,11 @@
    <div class="window active" id="main">
      <header><h1>Atkinson Dithering</h1></header>
      <article>
-     <img src="default.png" id="imagewell">
+     <img id="imagewell" class="empty" title="drop image here">
      <p>
        <input type="file" id="uploadfromdesktop" accept="image/*">
        <button id="loadfromdesktop">Choose Image...</button>
-       <button id="savetodesktop">Save to Desktop</button>
+       <button id="savetodesktop" disabled=true>Save to Desktop</button>
        </p>
      </article>
    </div>

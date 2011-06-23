@@ -26,6 +26,8 @@
               ctx.putImageData(event.data.image, 0, 0);
               imagewell.src = canvas.toDataURL("image/png");
               document.body.style.cursor = "";
+              document.getElementById("savetodesktop").disabled = false;
+              imagewell.className = "";
             }
             if (event.data.progress) {
               return console.log(event.data.progress);
@@ -43,10 +45,10 @@
       return event.preventDefault();
     }, this), false);
     imagewell.addEventListener("dragenter", function(event) {
-      return imagewell.src = "default-hover.png";
+      return imagewell.className = "hover";
     }, false);
     imagewell.addEventListener("dragleave", function(event) {
-      return imagewell.src = "default.png";
+      return imagewell.className = "empty";
     }, false);
     imagewell.addEventListener("drop", __bind(function(event) {
       var file, reader;

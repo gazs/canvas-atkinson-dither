@@ -1,0 +1,100 @@
+@-webkit-keyframes blinker { 
+  from { opacity: 1.0; }
+  to { opacity: 0.0; }
+}
+.clickyblinky {
+  -webkit-animation-name: blinker;
+  -webkit-animation-iteration-count: 3;
+  -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+  -webkit-animation-duration:0.1s;
+}
+
+html, body, #wrapper, #menubar, .menu {
+  margin:0; padding:0;
+}
+
+.whiteonblack {
+  background:#000;
+  color:#fff;
+}
+.blackonwhite {
+  background:#fff;
+  color:#000;
+}
+
+    html, body, #wrapper {height: 100%; -webkit-user-select:none; -moz-user-select:none; }
+    body {
+      background:#000;
+      font-family: 'Charcoal', 'Chicago';
+      font-size:12px;
+    }
+    #wrapper {
+      background:#808080;
+      border-radius:20px;
+    }
+    #menubar {
+      border-top-left-radius:5px;
+      border-top-right-radius:5px;
+      background:#fff;
+      height:20px;
+      border-bottom:1px solid black;
+      padding-left:20px;
+    }
+    .window {
+      background: #fff;
+      border: 1px solid black;
+    }
+    .window header {
+      display:block;
+      border-bottom: 1px solid black;
+      text-align:center;
+      height:18px;
+      overflow:hidden;
+    }
+    .window header h1 {
+      display:inline;
+      margin: 0; padding:0 5px 0 5px;
+      background:#fff;
+      font-size:12px;
+      font-weight:normal;
+    }
+    .window.active header {
+      background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAARCAQAAABd/bWaAAAAAXNSR0IArs4c6QAAAAJiS0dEAP+Hj8y/AAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH2wYRChUI5zFo5gAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAdSURBVAjXY/z/n4GBiYEBSjAy/GdgYPlPFgthCgCXVw4awgk+lAAAAABJRU5ErkJggg==);
+      margin-left:1px;
+      margin-right:1px;
+    }
+    #egy {
+      position:absolute;
+      top: 100px;
+      left:100px;
+    }
+    button {
+      background:#fff;
+      color:#000;
+      border: 1px solid black;
+      border-radius:5px;
+      font: 12px Charcoal;
+    }
+    button:active, .menu li:hover {
+      background:#000;
+      color:#fff;
+    }
+
+    #menubar {
+    }
+    #menubar li {
+      display: inline;
+    }
+    .menu {
+      list-style:none;
+      border-top:1px solid black;
+      border-left:1px solid black;
+      border-right:2px solid black;
+      border-bottom:2px solid black;
+      background-color:#fff;
+      position: absolute;
+    }
+    .menu li {
+      padding:2px 2px 2px 2px;
+      
+    }
