@@ -19,7 +19,7 @@
       <li>File
         <ul class="menu">
           <li><a href="#" id="import">Choose Image...</a></li>
-          <li><a href="#" id="export">Save to Desktop...</a></li>
+          <li><a href="#" id="export">Save to Desktop</a></li>
         </ul>
       </li>
       <li>Help
@@ -37,6 +37,16 @@
      <p>
        <input type="file" id="uploadfromdesktop" accept="image/*">
        <button id="loadfromdesktop">Choose Image...</button>
+       <label for="size">Fit picture in:</label>
+       <select id="size">
+         <option>50x50</option>
+         <option>320x240</option>
+         <option selected>512x384</option>
+         <option>640x480</option>
+         <option>800x600</option>
+         <option>1024x768</option>
+         <option>Other...</option>
+       </select>
        <button id="savetodesktop" disabled=true>Save to Desktop</button>
        </p>
      </article>
@@ -65,7 +75,7 @@
  
 <p>The rendered image can be rightclicked-saved. (Due to limitations of the browsers(?) you cannot drag it to the desktop)
  
-<p>This code uses Canvas, <a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd">Drag and Drop events</a>, <a href="https://developer.mozilla.org/en/using_web_workers">WebWorkers</a> and the <a href="https://developer.mozilla.org/en/DOM/FileReader">FileReader</a> API so you'll need a current browser to try it.</p></article> 
+<p>This code uses Canvas, <a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd">Drag and Drop events</a>, <a href="https://developer.mozilla.org/en/using_web_workers">WebWorkers</a> and the <a href="https://developer.mozilla.org/en/DOM/FileReader">FileReader</a> API so you'll need the newest and shiniest browser to try it.</p></article> 
    </div>
 
    <div class="window headless" id="aboutwindow">

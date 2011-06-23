@@ -137,7 +137,7 @@ a
     border 2px solid black
 
 
-button
+button, select
   blackonwhite()
   border: $border
   border-radius: 5px
@@ -172,6 +172,7 @@ button
         display block
 
 .menu
+  z-index 1
   display block
   nomarginpadding()
   blackonwhite()
@@ -192,8 +193,10 @@ button
       height 100%
       nomarginpadding()
 
-#progress
+#progresswindow
   text-align left
+  top 60px
+  left 150px
 .progressbar
   margin-top 4px
   float left

@@ -39,15 +39,33 @@ init= ->
     , false
 
   uploadfromdesktop = ->
-    draw @files[0].getAsDataURL()
+    #draw @files[0].getAsDataURL()
+    imagewell.saveAndDraw @files[0].getAsDataURL()
 
   savetodesktop = ->
-    imagewell = document.getElementById "imagewell"
-    if imagewell.src.match "^data:image"
-      document.location.href = imagewell.src.replace("image/png", "image/octet-stream")
+    if imagewell.element.src.match "^data:image"
+      #try
+        #blob = new MozBlobBuilder()
+        #blob.contentType("image/png")
+        #blob.append atob imagewell.src
+        #console.log blob
+      #catch e
+        ## BlobBuilder is so bleeding edge it hurts
+      # for now we have to hack our way out of the browser
+      document.location.href = imagewell.element.src.replace("image/png", "image/octet-stream")
 
   document.getElementById("loadfromdesktop").addEventListener 'click', (-> document.getElementById('uploadfromdesktop').click()), false
   document.getElementById("savetodesktop").addEventListener 'click', savetodesktop, false
   document.getElementById("uploadfromdesktop").addEventListener 'change', uploadfromdesktop, false
+  document.getElementById("size").addEventListener "change", (e) ->
+    if e.target.value is "Other..." # TODO: fujjhardkód
+      selection = prompt "How big should the picture be?", "800x600"
+    else
+      selection = e.target.value
+    [height,width] = selection.split("x")
+    imagewell.draw null, height, width
+
+    console.log (e.target.value)
+  ,false
 
 document.addEventListener 'DOMContentLoaded', init, false

@@ -78,20 +78,29 @@
       }, false);
     }
     uploadfromdesktop = function() {
-      return draw(this.files[0].getAsDataURL());
+      return imagewell.saveAndDraw(this.files[0].getAsDataURL());
     };
     savetodesktop = function() {
-      var imagewell;
-      imagewell = document.getElementById("imagewell");
-      if (imagewell.src.match("^data:image")) {
-        return document.location.href = imagewell.src.replace("image/png", "image/octet-stream");
+      if (imagewell.element.src.match("^data:image")) {
+        return document.location.href = imagewell.element.src.replace("image/png", "image/octet-stream");
       }
     };
     document.getElementById("loadfromdesktop").addEventListener('click', (function() {
       return document.getElementById('uploadfromdesktop').click();
     }), false);
     document.getElementById("savetodesktop").addEventListener('click', savetodesktop, false);
-    return document.getElementById("uploadfromdesktop").addEventListener('change', uploadfromdesktop, false);
+    document.getElementById("uploadfromdesktop").addEventListener('change', uploadfromdesktop, false);
+    return document.getElementById("size").addEventListener("change", function(e) {
+      var height, selection, width, _ref4;
+      if (e.target.value === "Other...") {
+        selection = prompt("How big should the picture be?", "800x600");
+      } else {
+        selection = e.target.value;
+      }
+      _ref4 = selection.split("x"), height = _ref4[0], width = _ref4[1];
+      imagewell.draw(null, height, width);
+      return console.log(e.target.value);
+    }, false);
   };
   document.addEventListener('DOMContentLoaded', init, false);
 }).call(this);

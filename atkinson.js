@@ -1,104 +1,119 @@
 (function() {
+  var Imagewell;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-  document.addEventListener("DOMContentLoaded", function() {
-    var canvas, imagewell;
-    canvas = document.createElement('canvas');
-    imagewell = document.getElementById('imagewell');
-    window.draw = function(src, width, height) {
+  Imagewell = (function() {
+    function Imagewell(element) {
+      this.draw = __bind(this.draw, this);;
+      this.saveAndDraw = __bind(this.saveAndDraw, this);;
+      this.loadAndRender = __bind(this.loadAndRender, this);;      this.element = document.getElementById(element);
+      this.canvas = document.createElement('canvas');
+      if (!this.canvas.getContext) {
+        alert("You need a browser capable of Canvas (and a lot of other things) to use this :(");
+        return false;
+      }
+      this.element.addEventListener("dragover", function(e) {
+        e.stopPropagation();
+        return e.preventDefault();
+      }, false);
+      this.element.addEventListener("dragenter", __bind(function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        return this.element.className = "hover";
+      }, this), false);
+      this.element.addEventListener("dragleave", __bind(function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        return this.element.className = "emtpy";
+      }, this), false);
+      this.element.addEventListener("drop", __bind(function(e) {
+        var file;
+        e.stopPropagation();
+        e.preventDefault();
+        file = e.dataTransfer.files[0];
+        if (!file.type.match('image')) {
+          return false;
+        }
+        return this.loadAndRender(file);
+      }, this), false);
+      this.element.addEventListener("dragstart", __bind(function(e) {
+        event.dataTransfer.setData("text/uri-list", this.element.src);
+        return event.dataTransfer.setData("text/plain", this.element.src);
+      }, this), false);
+    }
+    Imagewell.prototype.loadAndRender = function(file) {
+      var reader;
+      reader = new FileReader();
+      reader.onload = __bind(function(event) {
+        return this.saveAndDraw(event.target.result);
+      }, this);
+      return reader.readAsDataURL(file);
+    };
+    Imagewell.prototype.saveAndDraw = function(dataurl) {
+      this.originalpicture = dataurl;
+      return this.draw(this.originalpicture);
+    };
+    Imagewell.prototype.draw = function(src, width, height) {
       var ctx, image;
+      if (src == null) {
+        src = this.originalpicture;
+      }
       if (width == null) {
         width = 512;
       }
       if (height == null) {
         height = 384;
       }
-      document.body.style.cursor = "wait";
-      if (canvas.getContext) {
-        ctx = canvas.getContext('2d');
-        image = new Image();
-        image.src = src;
-        return image.onload = function() {
-          var imgd, prop, _i, _len, _ref;
-          if (image.height > 512 || image.width > 384) {
-            if (image.height > image.width) {
-              canvas.height = height;
-              canvas.width = (height / image.height) * image.width;
-            }
-            if (image.width > image.height) {
-              canvas.width = width;
-              canvas.height = (width / image.width) * image.height;
-            }
-          } else {
-            _ref = ['height', 'width'];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              prop = _ref[_i];
-              canvas[prop] = image[prop];
-            }
+      ctx = this.canvas.getContext('2d');
+      image = new Image();
+      image.src = src;
+      return image.onload = __bind(function() {
+        var imgd, prop, worker, _i, _len, _ref;
+        if (image.height > 512 || image.width > 384) {
+          if (image.height > image.width) {
+            this.canvas.height = height;
+            this.canvas.width = (height / image.height) * image.width;
           }
-          ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-          imgd = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          window.worker = new Worker("worker.js");
-          worker.addEventListener("message", function(event) {
-            if (event.data.image) {
-              ctx.putImageData(event.data.image, 0, 0);
-              imagewell.src = canvas.toDataURL("image/png");
-              document.body.style.cursor = "";
-              document.getElementById("savetodesktop").disabled = false;
-              imagewell.className = "";
+          if (image.width > image.height) {
+            this.canvas.width = width;
+            this.canvas.height = (width / image.width) * image.height;
+          }
+        } else {
+          _ref = ['height', 'width'];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            prop = _ref[_i];
+            this.canvas[prop] = image[prop];
+          }
+        }
+        ctx.drawImage(image, 0, 0, this.canvas.width, this.canvas.height);
+        imgd = ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        worker = new Worker("worker.js");
+        worker.addEventListener("message", __bind(function(event) {
+          if (event.data.image) {
+            ctx.putImageData(event.data.image, 0, 0);
+            this.element.src = this.canvas.toDataURL("image/png");
+            this.element.className = "";
+            document.getElementById("savetodesktop").disabled = false;
+          }
+          if (event.data.percent) {
+            if (event.data.percent === 100) {
+              document.getElementById("progresswindow").style.display = "none";
+            } else {
+              document.getElementById("progresswindow").style.display = "block";
             }
-            if (event.data.percent) {
-              if (event.data.percent !== 100) {
-                document.getElementById("progresswindow").style.display = "block";
-                document.getElementById("progresspercent").style.width = event.data.percent + "%";
-                return document.getElementById("progressmessage").innerHTML = event.data.message;
-              } else {
-                return document.getElementById("progresswindow").style.display = "none";
-              }
-            }
-          }, false);
-          worker.addEventListener("error", (function(event) {
-            return alert("error");
-          }), false);
-          return worker.postMessage(imgd);
-        };
-      }
+            document.getElementById("progressmessage").innerHTML = event.data.message;
+            return document.getElementById("progresspercent").style.width = event.data.percent + "%";
+          }
+        }, this), false);
+        worker.addEventListener("error", (function(e) {
+          alert("error");
+          return console.error(e);
+        }), false);
+        return worker.postMessage(imgd);
+      }, this);
     };
-    imagewell.addEventListener("dragover", __bind(function(event) {
-      event.stopPropagation();
-      return event.preventDefault();
-    }, this), false);
-    imagewell.addEventListener("dragenter", function(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      return imagewell.className = "hover";
-    }, false);
-    imagewell.addEventListener("dragleave", function(event) {
-      event.stopPropagation();
-      event.preventDefault();
-      return imagewell.className = "empty";
-    }, false);
-    imagewell.addEventListener("drop", __bind(function(event) {
-      var file, reader;
-      event.stopPropagation();
-      event.preventDefault();
-      file = event.dataTransfer.files[0];
-      if (!file.type.match('image.*')) {
-        return false;
-      }
-      reader = new FileReader();
-      reader.onload = function(e) {
-        return draw(e.target.result);
-      };
-      reader.onerror = function(e) {
-        return alert("FileReader error");
-      };
-      reader.readAsDataURL(file);
-      return console.log("drop done");
-    }, this), false);
-    return imagewell.addEventListener("dragstart", __bind(function(event) {
-      console.log(event.dataTransfer.files[0]);
-      event.dataTransfer.setData("text/uri-list", imagewell.src);
-      return event.dataTransfer.setData("text/plain", imagewell.src);
-    }, this), false);
+    return Imagewell;
+  })();
+  document.addEventListener("DOMContentLoaded", function() {
+    return window.imagewell = new Imagewell('imagewell');
   }, false);
 }).call(this);

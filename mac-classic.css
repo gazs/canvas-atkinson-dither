@@ -126,7 +126,8 @@ a {
   margin: 2px;
   border: 2px solid #000;
 }
-button {
+button,
+select {
   color: #000;
   background: #fff;
   border: 1px solid #000;
@@ -136,14 +137,17 @@ button {
   line-height: 17px;
   vertical-align: middle;
 }
-button:active {
+button:active,
+select:active {
   color: #fff;
   background: #000;
 }
-button[disabled] {
+button[disabled],
+select[disabled] {
   color: #808080;
 }
-button[disabled]:active {
+button[disabled]:active,
+select[disabled]:active {
   color: #000;
   background: #fff;
   color: #808080;
@@ -174,6 +178,7 @@ button[disabled]:active {
   display: block;
 }
 .menu {
+  z-index: 1;
   display: block;
   margin: 0;
   padding: 0;
@@ -205,8 +210,10 @@ button[disabled]:active {
   margin: 0;
   padding: 0;
 }
-#progress {
+#progresswindow {
   text-align: left;
+  top: 60px;
+  left: 150px;
 }
 .progressbar {
   margin-top: 4px;
