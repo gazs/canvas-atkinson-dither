@@ -1,24 +1,70 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Atkinson-dither</title>
+  <meta charset="utf-8">
+
+  <title>Mac-classic</title>
+  <link rel="stylesheet" href="mac-classic.css" type="text/css" media="screen" charset="utf-8">
+  <script src="mac-classic.js" type="text/javascript" charset="utf-8"></script>
   <script src="atkinson.js" type="text/javascript" charset="utf-8"></script>
-  <style type="text/css" media="screen">
-    body {
-      font-family: 'Charcoal', 'Chicago', sans;
-    }
-    canvas { border: 1px solid black; }
-    .dragover { border: 1px solid red; }
-    #imagewell { margin:20px; float:left }
-  </style>
 </head>
 <body>
+  <div id="wrapper">
+    <ul id="menubar">
+      <li>&#63743;
+        <ul class="menu">
+          <li><a href="#" id="about">About this Site</a></li>
+        </ul>
+      </li>
+      <li>File
+        <ul class="menu">
+          <li><a href="#" id="import">Choose Image...</a></li>
+          <li><a href="#" id="export">Save to Desktop</a></li>
+        </ul>
+      </li>
+      <li>Help
+        <ul class="menu">
+          <li><a href="#" id="help">What's this?</a></li>
+        </ul>
+      </li>
 
-  <h1>Atkinson dithering</h1>
-  <img src="default.png" id="imagewell">
+    </ul>
 
-<p>This is an implementation of the classic Macintosh 1-bit filter, as used by <a href="http://www.tinrocket.com/software/hyperdither/">Hyperdither</a></p> 
+   <div class="window active" id="main">
+     <header><h1>Atkinson Dithering</h1></header>
+     <article>
+     <img id="imagewell" class="empty" title="drop image here">
+     <p>
+       <input type="file" id="uploadfromdesktop" accept="image/*">
+       <button id="loadfromdesktop">Choose Image...</button>
+       <label for="size">Fit picture in:</label>
+       <select id="size">
+         <option>50x50</option>
+         <option>320x240</option>
+         <option selected>512x384</option>
+         <option>640x480</option>
+         <option>800x600</option>
+         <option>1024x768</option>
+         <option>Other...</option>
+       </select>
+       <button id="savetodesktop" disabled=true>Save to Desktop</button>
+       </p>
+     </article>
+   </div>
+   <div class="window headless" id="progresswindow">
+     <article>
+     <div id="progressmessage">processing...</div>
+     <div>
+       <div class="progressbar">
+         <div class="progresslevel" id="progresspercent"></div>
+       </div> 
+       <!--<button id="cancel">Cancel</button>-->
+     </div>
+     </article>
+   </div>
+   <div id="helpwindow" class="window">
+     <header><div class="close"></div><h1>What's this?</h1></header>
+     <article><p>This is an implementation of the classic Macintosh 1-bit filter, as used by <a href="http://www.tinrocket.com/software/hyperdither/">Hyperdither</a> and HyperScan originally.</p> 
  
 <p>It compares every pixel to 50% grey, then changes them to either black or white. The difference between the input and the output is then distributed to the neighbouring pixels <a href="http://verlagmartinkoch.at/software/dither/index.html">as follows</a> (X is the current pixel):</p> 
  
@@ -26,10 +72,22 @@
 1/8 1/8 1/8
     1/8
 </code></pre> 
-
+ 
 <p>The rendered image can be rightclicked-saved. (Due to limitations of the browsers(?) you cannot drag it to the desktop)
+ 
+<p>This code uses Canvas, <a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd">Drag and Drop events</a>, <a href="https://developer.mozilla.org/en/using_web_workers">WebWorkers</a> and the <a href="https://developer.mozilla.org/en/DOM/FileReader">FileReader</a> API so you'll need the newest and shiniest browser to try it.</p></article> 
+   </div>
 
-<p>This code uses Canvas, <a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd">Drag and Drop events</a>, <a href="https://developer.mozilla.org/en/using_web_workers">WebWorkers</a> and the <a href="https://developer.mozilla.org/en/DOM/FileReader">FileReader</a> API so you'll need a current browser to try it.</p>
-<p><a href="https://github.com/gazs/canvas-atkinson-dither">The code is available on github</a></p>
+   <div class="window headless" id="aboutwindow">
+     <article>
+     <p>Atkinson dithering demo app</p>
+     <p>written by Gáspár Körtesi</p>
+     <p>&lt;<a href="mailto:gazs@bergengocia.net">gazs@bergengocia.net</a>&gt;</p>
+     <img src="avatar.png" style="position:absolute; right:40px; top:25px">
+     <button class="close" style="position:absolute; right:20px; top:82px;">OK</button>
+     </article>
+   </div>
+
+  </div>
 </body>
 </html>
