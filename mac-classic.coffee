@@ -23,22 +23,31 @@ init= ->
     titlebar = w.querySelector "header"
     new Draggable titlebar, w if titlebar
 
-  actions =
-    help: ->
-      document.getElementById("helpwindow").style.display = "block"
-    about: ->
-      document.getElementById("aboutwindow").style.display = "block"
   for menuitem in document.querySelectorAll ".menu a"
     menuitem.addEventListener "click", ->
-      try
-        actions[this.id]()
-      catch e
-        alert "not implemented yet"
+      switch @id
+        when 'help' then document.getElementById("helpwindow").style.display = "block"
+        when 'about' then document.getElementById("aboutwindow").style.display = "block"
+        when 'export' then savetodesktop()
+        when 'import' then document.getElementById("uploadfromdesktop").click()
+        else alert "not implemented yet"
     , false
 
   for closebutton in document.querySelectorAll ".close"
     closebutton.addEventListener "click", ->
       @parentNode.parentNode.style.display = "none"
     , false
+
+  uploadfromdesktop = ->
+    draw @files[0].getAsDataURL()
+
+  savetodesktop = ->
+    imagewell = document.getElementById "imagewell"
+    if imagewell.src.match "^data:image"
+      document.location.href = imagewell.src.replace("image/png", "image/octet-stream")
+
+  document.getElementById("loadfromdesktop").addEventListener 'click', (-> document.getElementById('uploadfromdesktop').click()), false
+  document.getElementById("savetodesktop").addEventListener 'click', savetodesktop, false
+  document.getElementById("uploadfromdesktop").addEventListener 'change', uploadfromdesktop, false
 
 document.addEventListener 'DOMContentLoaded', init, false

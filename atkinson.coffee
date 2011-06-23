@@ -3,7 +3,7 @@ document.addEventListener "DOMContentLoaded", ->
   canvas = document.createElement 'canvas'
   imagewell = document.getElementById 'imagewell'
 
-  draw = (src) ->
+  window.draw = (src) ->
     document.body.style.cursor = "wait"
     if canvas.getContext
       ctx = canvas.getContext('2d')
@@ -12,7 +12,6 @@ document.addEventListener "DOMContentLoaded", ->
       image.onload = ->
         canvas[prop] = image[prop] for prop in ['height', 'width']
         ctx.drawImage image, 0, 0
-        # must be run from server (or loaded from data uri), otherwise raises 'DOM Exception 18'
         imgd = ctx.getImageData(0,0,canvas.width,canvas.height);
         window.worker = new Worker "worker.js"
         worker.addEventListener "message", (event) ->

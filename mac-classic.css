@@ -20,6 +20,9 @@
   -webkit-animation-timing-function: cubic-bezier(1, 0, 0, 1);
   -webkit-animation-duration: 0.1s;
 }
+input[type="file"] {
+  display: none;
+}
 * {
   cursor: default;
 }
@@ -64,6 +67,8 @@ a {
   color: #000;
   background: #fff;
   border: 1px solid #000;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
   position: absolute;
   font: 12px "Geneva", "Verdana", sans;
 }
@@ -101,6 +106,7 @@ a {
   margin-right: 1px;
 }
 .window.headless {
+  border: 1px solid #000;
   font: 12px "Virtue", "Charcoal", "Chicago", sans;
   text-align: center;
 }

@@ -41,6 +41,9 @@ $border = 1px solid black
 $systemfont = 12px 'Virtue', 'Charcoal', 'Chicago', sans
 $textfont = 12px 'Geneva', 'Verdana', sans
 
+input[type="file"]
+  display none
+
 bordershadow()
   border $border
   border-{side}-width 2px for side in bottom right
@@ -84,7 +87,7 @@ a
 .window
   display none
   blackonwhite()
-  border $border
+  bordershadow()
   position absolute
   font $textfont
 
@@ -118,6 +121,7 @@ a
     margin-{side} 1px for side in left right
 
 .window.headless
+  border: $border
   font $systemfont
   text-align center
   article 

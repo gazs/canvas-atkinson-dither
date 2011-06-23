@@ -43,7 +43,7 @@
     return Draggable;
   })();
   init = function() {
-    var actions, closebutton, menuitem, titlebar, w, _i, _j, _k, _len, _len2, _len3, _ref, _ref2, _ref3, _results;
+    var closebutton, menuitem, savetodesktop, titlebar, uploadfromdesktop, w, _i, _j, _k, _len, _len2, _len3, _ref, _ref2, _ref3;
     _ref = document.querySelectorAll(".window");
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       w = _ref[_i];
@@ -52,34 +52,46 @@
         new Draggable(titlebar, w);
       }
     }
-    actions = {
-      help: function() {
-        return document.getElementById("helpwindow").style.display = "block";
-      },
-      about: function() {
-        return document.getElementById("aboutwindow").style.display = "block";
-      }
-    };
     _ref2 = document.querySelectorAll(".menu a");
     for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
       menuitem = _ref2[_j];
       menuitem.addEventListener("click", function() {
-        try {
-          return actions[this.id]();
-        } catch (e) {
-          return alert("not implemented yet");
+        switch (this.id) {
+          case 'help':
+            return document.getElementById("helpwindow").style.display = "block";
+          case 'about':
+            return document.getElementById("aboutwindow").style.display = "block";
+          case 'export':
+            return savetodesktop();
+          case 'import':
+            return document.getElementById("uploadfromdesktop").click();
+          default:
+            return alert("not implemented yet");
         }
       }, false);
     }
     _ref3 = document.querySelectorAll(".close");
-    _results = [];
     for (_k = 0, _len3 = _ref3.length; _k < _len3; _k++) {
       closebutton = _ref3[_k];
-      _results.push(closebutton.addEventListener("click", function() {
+      closebutton.addEventListener("click", function() {
         return this.parentNode.parentNode.style.display = "none";
-      }, false));
+      }, false);
     }
-    return _results;
+    uploadfromdesktop = function() {
+      return draw(this.files[0].getAsDataURL());
+    };
+    savetodesktop = function() {
+      var imagewell;
+      imagewell = document.getElementById("imagewell");
+      if (imagewell.src.match("^data:image")) {
+        return document.location.href = imagewell.src.replace("image/png", "image/octet-stream");
+      }
+    };
+    document.getElementById("loadfromdesktop").addEventListener('click', (function() {
+      return document.getElementById('uploadfromdesktop').click();
+    }), false);
+    document.getElementById("savetodesktop").addEventListener('click', savetodesktop, false);
+    return document.getElementById("uploadfromdesktop").addEventListener('change', uploadfromdesktop, false);
   };
   document.addEventListener('DOMContentLoaded', init, false);
 }).call(this);

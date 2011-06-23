@@ -1,10 +1,10 @@
 (function() {
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   document.addEventListener("DOMContentLoaded", function() {
-    var canvas, draw, imagewell;
+    var canvas, imagewell;
     canvas = document.createElement('canvas');
     imagewell = document.getElementById('imagewell');
-    draw = function(src) {
+    window.draw = function(src) {
       var ctx, image;
       document.body.style.cursor = "wait";
       if (canvas.getContext) {

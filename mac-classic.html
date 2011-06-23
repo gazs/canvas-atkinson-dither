@@ -19,8 +19,8 @@
       </li>
       <li>File
         <ul class="menu">
-          <li><a href="#" id="import">Import...</a></li>
-          <li><a href="#" id="export">Export...</a></li>
+          <li><a href="#" id="import">Choose Image...</a></li>
+          <li><a href="#" id="export">Save to Desktop...</a></li>
         </ul>
       </li>
       <li>Help
@@ -35,7 +35,11 @@
      <header><h1>Atkinson Dithering</h1></header>
      <article>
      <img src="default.png" id="imagewell">
-       <button>gomb</button>
+     <p>
+       <input type="file" id="uploadfromdesktop" accept="image/*">
+       <button id="loadfromdesktop">Choose Image...</button>
+       <button id="savetodesktop">Save to Desktop</button>
+       </p>
      </article>
    </div>
    <div id="helpwindow" class="window">
