@@ -206,11 +206,11 @@ button[disabled]:active {
   top: 120px;
 }
 #imagewell {
-  border: 1px dotted #000;
   border-radius: 5px;
   display: block;
 }
 #imagewell.empty {
+  border: 1px dotted #000;
   height: 256px;
   width: 256px;
 }
