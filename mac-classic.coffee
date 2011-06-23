@@ -19,6 +19,8 @@ class Draggable
 
 
 init= ->
+  unless !!window.File && !!window.FileList && !!window.FileReader && 
+    alert "This webpage won't work on your browser, try upgrading?"
   for w in document.querySelectorAll ".window"
     titlebar = w.querySelector "header"
     new Draggable titlebar, w if titlebar

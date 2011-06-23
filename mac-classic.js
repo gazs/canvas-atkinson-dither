@@ -44,6 +44,9 @@
   })();
   init = function() {
     var closebutton, menuitem, savetodesktop, titlebar, uploadfromdesktop, w, _i, _j, _k, _len, _len2, _len3, _ref, _ref2, _ref3;
+    if (!window.FileReader || !window.Worker) {
+      alert("This webpage won't work on your browser, try upgrading?");
+    }
     _ref = document.querySelectorAll(".window");
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       w = _ref[_i];
