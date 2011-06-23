@@ -36,8 +36,13 @@ document.addEventListener "DOMContentLoaded", ->
             document.body.style.cursor = ""
             document.getElementById("savetodesktop").disabled = false
             imagewell.className = ""
-          if event.data.progress
-            console.log event.data.progress
+          if event.data.percent
+            unless event.data.percent is 100
+              document.getElementById("progresswindow").style.display = "block"
+              document.getElementById("progresspercent").style.width = event.data.percent + "%"
+              document.getElementById("progressmessage").innerHTML = event.data.message
+            else
+              document.getElementById("progresswindow").style.display = "none"
         , false
         worker.addEventListener "error",((event) -> alert "error"), false
         worker.postMessage imgd

@@ -9,17 +9,22 @@
   };
   luminance = function(imagedata) {
     var i, pixels, _ref;
+    this.postMessage({
+      percent: 0,
+      message: "calculating luminance values..."
+    });
     pixels = imagedata.data;
     for (i = 0, _ref = pixels.length; 0 <= _ref ? i <= _ref : i >= _ref; i += 4) {
       pixels[i] = pixels[i + 1] = pixels[i + 2] = parseInt(pixels[i] * 0.3 + pixels[i + 1] * 0.59 + pixels[i + 2] * 0.11, 10);
     }
-    this.postMessage({
-      progress: "luminance done"
-    });
     return imagedata;
   };
   atkinson = function(imagedata) {
     var err, i, mono, one, pixels, w, _i, _len, _ref, _ref2;
+    this.postMessage({
+      percent: 50,
+      message: "dithering..."
+    });
     pixels = imagedata.data;
     w = imagedata.width;
     for (i = 0, _ref = pixels.length; 0 <= _ref ? i <= _ref : i >= _ref; i += 4) {
@@ -34,13 +39,14 @@
       pixels[i + 1] = pixels[i + 2] = pixels[i];
     }
     this.postMessage({
-      progress: "atkinson done"
+      percent: 100,
+      message: "complete"
     });
     return imagedata;
   };
   this.addEventListener("message", function(event) {
     return this.postMessage({
-      image: luminance(atkinson(event.data))
+      image: atkinson(luminance(event.data))
     });
   }, false);
 }).call(this);

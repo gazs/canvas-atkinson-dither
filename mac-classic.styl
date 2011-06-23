@@ -94,17 +94,19 @@ a
   bordershadow()
   position absolute
   font $textfont
+  overflow auto
 
 .window article
   cursor auto 
   margin 10px
+  overflow auto
 
 .window header
   display block
   border-bottom $border 
   text-align center
   height 18px
-  line-height 18px
+  line-height 17px
   vertical-align middle
   overflow hidden
   .close
@@ -141,7 +143,7 @@ button
   border-radius: 5px
   font $systemfont
   height 20px
-  line-height 20px
+  line-height 17px
   vertical-align middle
   &:active
     whiteonblack()
@@ -190,6 +192,20 @@ button
       height 100%
       nomarginpadding()
 
+#progress
+  text-align left
+.progressbar
+  margin-top 4px
+  float left
+  width 150px
+  height 10px
+  border $border
+  .progresslevel
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAFUlEQVQImWNggID/SBiFgyLAgFUFALChDfPpdp57AAAAAElFTkSuQmCC")
+    width 0%
+    height 100%
+#cancel
+  margin-left 15px
 
 #main
   display block

@@ -79,17 +79,19 @@ a {
   border-right-width: 2px;
   position: absolute;
   font: 12px "Geneva", "Verdana", sans;
+  overflow: auto;
 }
 .window article {
   cursor: auto;
   margin: 10px;
+  overflow: auto;
 }
 .window header {
   display: block;
   border-bottom: 1px solid #000;
   text-align: center;
   height: 18px;
-  line-height: 18px;
+  line-height: 17px;
   vertical-align: middle;
   overflow: hidden;
 }
@@ -131,7 +133,7 @@ button {
   border-radius: 5px;
   font: 12px "Virtue", "Charcoal", "Chicago", sans;
   height: 20px;
-  line-height: 20px;
+  line-height: 17px;
   vertical-align: middle;
 }
 button:active {
@@ -202,6 +204,24 @@ button[disabled]:active {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+#progress {
+  text-align: left;
+}
+.progressbar {
+  margin-top: 4px;
+  float: left;
+  width: 150px;
+  height: 10px;
+  border: 1px solid #000;
+}
+.progressbar .progresslevel {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAFUlEQVQImWNggID/SBiFgyLAgFUFALChDfPpdp57AAAAAElFTkSuQmCC");
+  width: 0%;
+  height: 100%;
+}
+#cancel {
+  margin-left: 15px;
 }
 #main {
   display: block;

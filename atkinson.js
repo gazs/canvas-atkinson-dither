@@ -50,8 +50,14 @@
               document.getElementById("savetodesktop").disabled = false;
               imagewell.className = "";
             }
-            if (event.data.progress) {
-              return console.log(event.data.progress);
+            if (event.data.percent) {
+              if (event.data.percent !== 100) {
+                document.getElementById("progresswindow").style.display = "block";
+                document.getElementById("progresspercent").style.width = event.data.percent + "%";
+                return document.getElementById("progressmessage").innerHTML = event.data.message;
+              } else {
+                return document.getElementById("progresswindow").style.display = "none";
+              }
             }
           }, false);
           worker.addEventListener("error", (function(event) {
