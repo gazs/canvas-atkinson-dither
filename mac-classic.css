@@ -26,6 +26,14 @@ input[type="file"] {
 * {
   cursor: default;
 }
+::selection {
+  color: #fff;
+  background: #000;
+}
+::-moz-selection {
+  color: #fff;
+  background: #000;
+}
 html,
 body,
 #wrapper {
@@ -73,6 +81,7 @@ a {
   font: 12px "Geneva", "Verdana", sans;
 }
 .window article {
+  cursor: auto;
   margin: 10px;
 }
 .window header {
@@ -157,6 +166,9 @@ button[disabled]:active {
   background: #000;
 }
 #menubar > li:hover ul.menu {
+  position: absolute;
+  left: 0px;
+  top: 20px;
   display: block;
 }
 .menu {
@@ -170,7 +182,7 @@ button[disabled]:active {
   border-bottom-width: 2px;
   border-right-width: 2px;
   position: absolute;
-  min-width: 120px;
+  min-width: 140px;
 }
 .menu li {
   padding: 2px 15px 2px 15px;
