@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Virtue;
+  font-style: normal;
+  src: url("virtue.ttf");
+}
 @-webkit-keyframes blinky {
   0% {
     color: #000;
@@ -29,13 +34,13 @@ body,
   user-select: none;
 }
 body {
-  font: 12px "Charcoal", "Chicago", sans;
+  font: 12px "Virtue", "Charcoal", "Chicago", sans;
   color: #fff;
   background: #000;
 }
 a {
   color: #000;
-  font: 12px "Charcoal", "Chicago", sans;
+  font: 12px "Virtue", "Charcoal", "Chicago", sans;
 }
 #wrapper {
   border-radius: 5px;
@@ -88,7 +93,7 @@ a {
   display: inline;
   margin: 0;
   padding: 0 5px 0 5px;
-  font: 12px "Charcoal", "Chicago", sans;
+  font: 12px "Virtue", "Charcoal", "Chicago", sans;
 }
 .window.active header {
   background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAARCAQAAABd/bWaAAAAAXNSR0IArs4c6QAAAAJiS0dEAP+Hj8y/AAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH2wYRChUI5zFo5gAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAdSURBVAjXY/z/n4GBiYEBSjAy/GdgYPlPFgthCgCXVw4awgk+lAAAAABJRU5ErkJggg==");
@@ -96,7 +101,7 @@ a {
   margin-right: 1px;
 }
 .window.headless {
-  font: 12px "Charcoal", "Chicago", sans;
+  font: 12px "Virtue", "Charcoal", "Chicago", sans;
   text-align: center;
 }
 .window.headless article {
@@ -109,7 +114,7 @@ button {
   background: #fff;
   border: 1px solid #000;
   border-radius: 5px;
-  font: 12px "Charcoal", "Chicago", sans;
+  font: 12px "Virtue", "Charcoal", "Chicago", sans;
   height: 20px;
   line-height: 20px;
   vertical-align: middle;
