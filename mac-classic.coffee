@@ -60,6 +60,10 @@ init= ->
   document.getElementById("size").addEventListener "change", (e) ->
     if e.target.value is "Other..." # TODO: fujjhardkód
       selection = prompt "How big should the picture be?", "800x600"
+      newOption = document.createElement "option"
+      newOption.innerHTML = selection
+      e.target.appendChild newOption
+      newOption.selected = true
     else
       selection = e.target.value
     [height,width] = selection.split("x")

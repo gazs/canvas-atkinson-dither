@@ -128,6 +128,7 @@ a {
 }
 button,
 select {
+  min-width: 80px;
   color: #000;
   background: #fff;
   border: 1px solid #000;
@@ -243,6 +244,8 @@ select[disabled]:active {
 #aboutwindow {
   left: 120px;
   top: 120px;
+  text-align: left;
+  width: 350px;
 }
 #imagewell {
   border-radius: 5px;

@@ -91,9 +91,13 @@
     document.getElementById("savetodesktop").addEventListener('click', savetodesktop, false);
     document.getElementById("uploadfromdesktop").addEventListener('change', uploadfromdesktop, false);
     return document.getElementById("size").addEventListener("change", function(e) {
-      var height, selection, width, _ref4;
+      var height, newOption, selection, width, _ref4;
       if (e.target.value === "Other...") {
         selection = prompt("How big should the picture be?", "800x600");
+        newOption = document.createElement("option");
+        newOption.innerHTML = selection;
+        e.target.appendChild(newOption);
+        newOption.selected = true;
       } else {
         selection = e.target.value;
       }
