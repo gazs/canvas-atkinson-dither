@@ -26,10 +26,10 @@ class Imagewell
       return false unless file.type.match('image')
       @loadAndRender(file)
     ,false
-    @element.addEventListener "dragstart", (e) =>
-      event.dataTransfer.setData("text/uri-list", @element.src)
-      event.dataTransfer.setData("text/plain", @element.src)
-    ,false
+    #@element.addEventListener "dragstart", (e) =>
+      #event.dataTransfer.setData("text/uri-list", @element.src)
+      #event.dataTransfer.setData("text/plain", @element.src)
+    #,false
   loadAndRender: (file) =>
     reader = new FileReader()
     reader.onload = (event) =>

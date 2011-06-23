@@ -35,10 +35,6 @@
         }
         return this.loadAndRender(file);
       }, this), false);
-      this.element.addEventListener("dragstart", __bind(function(e) {
-        event.dataTransfer.setData("text/uri-list", this.element.src);
-        return event.dataTransfer.setData("text/plain", this.element.src);
-      }, this), false);
     }
     Imagewell.prototype.loadAndRender = function(file) {
       var reader;
