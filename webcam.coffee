@@ -24,6 +24,10 @@ $ ->
       alert "could not get webcam"
 
     .then (stream) ->
+
+      source = $("canvas").get(0)
+      ctx = source.getContext "2d"
+
       vdef = $.Deferred()
 
       vid = document.createElement "video"
@@ -31,14 +35,20 @@ $ ->
       windowurl = window.URL || window.webkitURL
       vid.src = if windowurl then windowurl.createObjectURL(stream) else stream
 
-      $(vid).on "canplay", -> # XXX deferreds are cleaner, but piping them is... weird?
+      $(vid).on "loadedmetadata", ->
+        console.log "loadedmetadata"
+        ctx.canvas.width = vid.videoWidth
+        ctx.canvas.height = vid.videoHeight
 
-        source = $("canvas").get(0)
-        ctx = source.getContext "2d"
+      $(vid).on "canplay", -> # XXX deferreds are cleaner, but piping them is... weird?
+        console.dir(vid.videoWidth)
+        window.vid = vid
+
         draw= ->
           requestAnimFrame(draw)
           
-          ctx.drawImage(vid, 0, 0, vid.videoWidth, vid.videoHeight, 0, 0, 640, 480)
+          console.log [ctx.canvas.width, ctx.canvas.height]
+          ctx.drawImage(vid, 0, 0, ctx.canvas.width, ctx.canvas.height)
           pixels = ctx.getImageData(0,0, ctx.canvas.width, ctx.canvas.height)
           ctx.putImageData(process(pixels), 0, 0)
 
