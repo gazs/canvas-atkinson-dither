@@ -10,7 +10,7 @@ luminance = (imagedata) ->
         pixels[i+1] * 0.59 +
         pixels[i+2] * 0.11
       , 10)
-  @postMessage progress: "luminance done"
+  #@postMessage progress: "luminance done"
   return imagedata
 
 atkinson = (imagedata) ->
@@ -24,8 +24,10 @@ atkinson = (imagedata) ->
     for one of neighbours
       pixels[neighbours[one]] += err
     pixels[i+1] = pixels[i+2] = pixels[i]
-  @postMessage progress: "atkinson done"
+  #@postMessage progress: "atkinson done"
   return imagedata
+
+@process = (image) -> atkinson luminance image.data
 
 @addEventListener "message", (event) ->
   @postMessage image: atkinson luminance event.data
