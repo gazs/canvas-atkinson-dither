@@ -36,18 +36,15 @@ $ ->
       vid.src = if windowurl then windowurl.createObjectURL(stream) else stream
 
       $(vid).on "loadedmetadata", ->
-        console.log "loadedmetadata"
         ctx.canvas.width = vid.videoWidth
         ctx.canvas.height = vid.videoHeight
 
       $(vid).on "canplay", -> # XXX deferreds are cleaner, but piping them is... weird?
-        console.dir(vid.videoWidth)
         window.vid = vid
 
         draw= ->
           requestAnimFrame(draw)
           
-          console.log [ctx.canvas.width, ctx.canvas.height]
           ctx.drawImage(vid, 0, 0, ctx.canvas.width, ctx.canvas.height)
           pixels = ctx.getImageData(0,0, ctx.canvas.width, ctx.canvas.height)
           ctx.putImageData(process(pixels), 0, 0)
