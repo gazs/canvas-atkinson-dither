@@ -28,7 +28,7 @@ $ ->
       source = $("canvas").get(0)
       ctx = source.getContext "2d"
 
-      vdef = $.Deferred()
+      deferred = $.Deferred()
 
       vid = document.createElement "video"
 
@@ -39,13 +39,13 @@ $ ->
         ctx.canvas.width = vid.videoWidth
         ctx.canvas.height = vid.videoHeight
 
-      $(vid).on "canplay", -> vdef.resolve(ctx, vid)
+      $(vid).on "canplay", -> deferred.resolve(ctx, vid)
 
       vid.loop = vid.muted = true
       vid.load()
       vid.play()
 
-      return vdef.promise()
+      return deferred.promise()
 
     .then (ctx, vid) ->
       draw= ->
