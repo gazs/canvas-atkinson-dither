@@ -33,10 +33,14 @@ $ ->
 
       $(vid).on "canplay", -> # XXX deferreds are cleaner, but piping them is... weird?
 
+        source = $("canvas").get(0)
+        ctx = source.getContext "2d"
         draw= ->
           requestAnimFrame(draw)
-          ctx = $("canvas").get(0).getContext "2d"
+          
           ctx.drawImage(vid, 0, 0, vid.videoWidth, vid.videoHeight, 0, 0, 640, 480)
+          pixels = ctx.getImageData(0,0, ctx.canvas.width, ctx.canvas.height)
+          ctx.putImageData(process(pixels), 0, 0)
 
         console.log "can play"
         draw()

@@ -27,7 +27,7 @@ atkinson = (imagedata) ->
   #@postMessage progress: "atkinson done"
   return imagedata
 
-@process = (image) -> atkinson luminance image.data
+@process = (image) -> atkinson luminance image
 
 @addEventListener "message", (event) ->
   @postMessage image: atkinson luminance event.data
