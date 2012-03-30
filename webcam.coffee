@@ -14,14 +14,14 @@ $ ->
   getWebcam  = ->
     deferred = $.Deferred()
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia
-    deferred.reject() unless navigator.getUserMedia
+    if navigator.getUserMedia
+      navigator.getUserMedia 'video', deferred.resolve, deferred.reject
+    else
+      deferred.reject()
 
-    navigator.getUserMedia 'video', deferred.resolve, deferred.reject
     return deferred.promise()
 
   getWebcam()
-    .fail (err) ->
-      alert "could not get webcam"
 
     .pipe (stream) ->
 
@@ -36,10 +36,12 @@ $ ->
       vid.src = if windowurl then windowurl.createObjectURL(stream) else stream
 
       $(vid).on "loadedmetadata", ->
-        ctx.canvas.width = vid.videoWidth
-        ctx.canvas.height = vid.videoHeight
+        div = 1
+        ctx.canvas.width = vid.videoWidth / div
+        ctx.canvas.height = vid.videoHeight / div
 
       $(vid).on "canplay", -> deferred.resolve(ctx, vid)
+      $(vid).on "error", -> deferred.reject()
 
       vid.loop = vid.muted = true
       vid.load()
@@ -55,3 +57,5 @@ $ ->
         ctx.putImageData(process(pixels), 0, 0)
 
       draw()
+    .fail (err) ->
+      alert "could not get webcam"
