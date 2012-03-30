@@ -23,7 +23,7 @@ $ ->
     .fail (err) ->
       alert "could not get webcam"
 
-    .then (stream) ->
+    .pipe (stream) ->
 
       source = $("canvas").get(0)
       ctx = source.getContext "2d"
@@ -39,24 +39,19 @@ $ ->
         ctx.canvas.width = vid.videoWidth
         ctx.canvas.height = vid.videoHeight
 
-      $(vid).on "canplay", -> # XXX deferreds are cleaner, but piping them is... weird?
-        window.vid = vid
-
-        draw= ->
-          requestAnimFrame(draw)
-          
-          ctx.drawImage(vid, 0, 0, ctx.canvas.width, ctx.canvas.height)
-          pixels = ctx.getImageData(0,0, ctx.canvas.width, ctx.canvas.height)
-          ctx.putImageData(process(pixels), 0, 0)
-
-        console.log "can play"
-        draw()
-        
-        vdef.resolve()
+      $(vid).on "canplay", -> vdef.resolve(ctx, vid)
 
       vid.loop = vid.muted = true
       vid.load()
       vid.play()
 
+      return vdef.promise()
 
+    .then (ctx, vid) ->
+      draw= ->
+        requestAnimFrame(draw)
+        ctx.drawImage(vid, 0, 0, ctx.canvas.width, ctx.canvas.height)
+        pixels = ctx.getImageData(0,0, ctx.canvas.width, ctx.canvas.height)
+        ctx.putImageData(process(pixels), 0, 0)
 
+      draw()
