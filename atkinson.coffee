@@ -34,9 +34,9 @@ class Imagewell
     reader = new FileReader()
     reader.onload = (event) =>
       @saveAndDraw event.target.result
-    reader.readAsDataURL file 
+    reader.readAsDataURL file
   saveAndDraw: (dataurl) =>
-    @originalpicture = dataurl 
+    @originalpicture = dataurl
     @draw @originalpicture
 
   draw: (src=@originalpicture, width=512, height=384) =>
@@ -51,7 +51,7 @@ class Imagewell
           if image.width > image.height
             @canvas.width = width
             @canvas.height = (width/image.width) * image.height
-        else 
+        else
           @canvas[prop] = image[prop] for prop in ['height', 'width']
         ctx.drawImage image, 0, 0, @canvas.width, @canvas.height
         imgd = ctx.getImageData 0, 0, @canvas.width, @canvas.height

@@ -19,7 +19,7 @@ class Draggable
 
 
 init= ->
-  unless !!window.File && !!window.FileList && !!window.FileReader && 
+  unless !!window.File && !!window.FileList && !!window.FileReader
     alert "This webpage won't work on your browser, try upgrading?"
   for w in document.querySelectorAll ".window"
     titlebar = w.querySelector "header"
@@ -41,8 +41,10 @@ init= ->
     , false
 
   uploadfromdesktop = ->
-    #draw @files[0].getAsDataURL()
-    imagewell.saveAndDraw @files[0].getAsDataURL()
+    reader = new FileReader()
+    reader.readAsDataURL(@files[0])
+    reader.onloadend = ->
+      imagewell.saveAndDraw reader.result
 
   savetodesktop = ->
     if imagewell.element.src.match "^data:image"

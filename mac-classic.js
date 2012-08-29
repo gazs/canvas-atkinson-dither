@@ -1,17 +1,21 @@
 (function() {
-  var Draggable, init;
-  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  var Draggable, init,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
   Draggable = (function() {
+
     function Draggable(handle, element) {
       this.element = element;
-      this.up = __bind(this.up, this);;
-      this.move = __bind(this.move, this);;
-      this.down = __bind(this.down, this);;
+      this.up = __bind(this.up, this);
+      this.move = __bind(this.move, this);
+      this.down = __bind(this.down, this);
       handle.addEventListener("mousedown", this.down, false);
     }
+
     Draggable.prototype.getCssPos = function(side) {
       return parseInt(getComputedStyle(this.element)[side].replace("px", ""), 10);
     };
+
     Draggable.prototype.down = function(e) {
       var ev, _i, _len, _ref;
       this.isDown = true;
@@ -23,12 +27,14 @@
       this.offsettop = this.getCssPos("top") - e.clientY;
       return this.offsetleft = this.getCssPos("left") - e.clientX;
     };
+
     Draggable.prototype.move = function(e) {
       if (this.isDown) {
         this.element.style.top = e.clientY + this.offsettop + "px";
         return this.element.style.left = e.clientX + this.offsetleft + "px";
       }
     };
+
     Draggable.prototype.up = function(e) {
       var ev, _i, _len, _ref, _results;
       this.isDown = false;
@@ -40,20 +46,21 @@
       }
       return _results;
     };
+
     return Draggable;
+
   })();
+
   init = function() {
     var closebutton, menuitem, savetodesktop, titlebar, uploadfromdesktop, w, _i, _j, _k, _len, _len2, _len3, _ref, _ref2, _ref3;
-    if (!window.FileReader || !window.Worker) {
+    if (!(!!window.File && !!window.FileList && !!window.FileReader)) {
       alert("This webpage won't work on your browser, try upgrading?");
     }
     _ref = document.querySelectorAll(".window");
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       w = _ref[_i];
       titlebar = w.querySelector("header");
-      if (titlebar) {
-        new Draggable(titlebar, w);
-      }
+      if (titlebar) new Draggable(titlebar, w);
     }
     _ref2 = document.querySelectorAll(".menu a");
     for (_j = 0, _len2 = _ref2.length; _j < _len2; _j++) {
@@ -81,7 +88,12 @@
       }, false);
     }
     uploadfromdesktop = function() {
-      return imagewell.saveAndDraw(this.files[0].getAsDataURL());
+      var reader;
+      reader = new FileReader();
+      reader.readAsDataURL(this.files[0]);
+      return reader.onloadend = function() {
+        return imagewell.saveAndDraw(reader.result);
+      };
     };
     savetodesktop = function() {
       if (imagewell.element.src.match("^data:image")) {
@@ -109,5 +121,7 @@
       return console.log(e.target.value);
     }, false);
   };
+
   document.addEventListener('DOMContentLoaded', init, false);
+
 }).call(this);
