@@ -1,5 +1,6 @@
 # Atkinson dithering example using Canvas, WebWorkers and FileReader
 
+
 The classic Macintosh 1-bit filter, as used by [Hyperdither][1]
 
 Compares every pixel to 50% grey, then changes them to either black or white. The difference between the input and the output is then distributed to the neighbouring pixels [as follows][2] (X is the current pixel):
