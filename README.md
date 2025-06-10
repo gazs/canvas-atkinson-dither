@@ -12,8 +12,8 @@ This code uses [Drag and Drop events][5], [WebWorkers][3] and the [FileReader][4
 
 (Oh, and of course, CoffeeScript, to compile the files into JS)
 
-[1]:http://www.tinrocket.com/software/hyperdither/
-[2]:http://verlagmartinkoch.at/software/dither/index.html
-[3]:https://developer.mozilla.org/en/using_web_workers
+[1]:https://www.tinrocket.com/content/hyperdither/
+[2]:https://web.archive.org/web/20200111194326/verlagmartinkoch.at/software/dither/index.html
+[3]:https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers
 [4]:https://developer.mozilla.org/en/DOM/FileReader
 [5]:http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd
